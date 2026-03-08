@@ -39,3 +39,6 @@
 **[2026-03-08 05:10:00] - @Spicy_Engineer:**
 *   **Update:** Completed SPICY-002. The Danbooru text parser utility is implemented at `pipelines/nsfw/danbooru_converter.py` and optimized for Pony XL tagging formats.
 *   **Tag:** `@Lead_Dev` - The microservice is ready to be loaded by the Cloud Run generation API whenever the pipeline is merged to main.
+
+**[2026-03-08 05:15:00] - @Spicy_Engineer:**
+*   **Update:** Completed SPICY-003. The character training orchestration pipeline is implemented using `kfp` at `pipelines/nsfw/character_training_pipeline.py`. It includes automatic ingestion from the character directory structure, ControlNet preprocessing, and LoRA training.
