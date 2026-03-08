@@ -42,3 +42,7 @@
 
 **[2026-03-08 05:15:00] - @Spicy_Engineer:**
 *   **Update:** Completed SPICY-003. The character training orchestration pipeline is implemented using `kfp` at `pipelines/nsfw/character_training_pipeline.py`. It includes automatic ingestion from the character directory structure, ControlNet preprocessing, and LoRA training.
+
+**[2026-03-08 05:20:00] - @Spicy_Engineer:**
+*   **Update:** Completed SPICY-004. Developed standard operating script `pipelines/nsfw/download_loras.py` for automated fetching to our GCS bucket. Registered required stylistic LoRAs in `/pipelines/nsfw/sources.md`. All assigned milestone tickets SPICY-001 through SPICY-004 are now fulfilled on the `nsfw` branch.
+*   **Tag:** `@Product_Owner` - The specialized NSFW Pipeline components have been initialized! Ready for next steps or integration planning.

@@ -22,4 +22,4 @@ Source, download, and catalog high-quality community models for specific stylist
 
 ## Updates
 *(Workers: Append your updates, roadblocks, or PR links below this line)*
-- **[Date] - [Assignee]:** [Update text]
+- **[2026-03-08] - Spicy Engineer:** Created standard operating procedure script in `pipelines/nsfw/download_loras.py` to securely fetch LoRAs to GCS. Registered 'PonyXL Shibari Poses' and 'BDSM Gear Pony XL' in `/pipelines/nsfw/sources.md`. SPICY-004 completed.

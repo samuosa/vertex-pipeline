@@ -10,7 +10,8 @@
 ## Fetish & Pose LoRAs
 | LoRA Name | Version | Source (URL) | Trigger Words / Tags | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| [Pending SPICY-004] | -- | -- | -- | -- |
+| PonyXL Shibari Poses | v1.0 | CivitAI (mock123) | `shibari, bound, suspension` | Provides consistent Japanese rope bondage poses optimized for Pony XL. |
+| BDSM Gear Pony XL | v2.1 | HuggingFace (mockuser/bdsm-gear) | `leather harness, collar, blindfold` | Injects high-fidelity BDSM equipment onto standard character generations. |
 
 ## ControlNet Models
 | Model Name | Version | Source (URL) | Usage | Description |
