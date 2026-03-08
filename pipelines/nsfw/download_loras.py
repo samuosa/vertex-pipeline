@@ -1,17 +1,22 @@
 import os
 import argparse
 from google.cloud import storage
+from dotenv import load_dotenv
+
+base_dir = os.path.join(os.path.dirname(__file__), '../..')
+load_dotenv(os.path.join(base_dir, ".env"))
+load_dotenv(os.path.join(base_dir, ".env.local"), override=True)
 
 # Mock URLs for required external NSFW LoRAs
 LORA_REGISTRY = [
     {
         "name": "PonyXL_Shibari_Poses_v1",
-        "url": "https://civitai.com/api/download/models/mock123",
+        "url": os.environ.get("LORA_URL_SHIBARI", "https://civitai.com/api/download/models/mock123"),
         "filename": "pony_shibari_v1.safetensors"
     },
     {
         "name": "BDSM_Gear_Pony_XL",
-        "url": "https://huggingface.co/mockuser/bdsm-gear/resolve/main/bdsm_gear.safetensors",
+        "url": os.environ.get("LORA_URL_BDSM", "https://huggingface.co/mockuser/bdsm-gear/resolve/main/bdsm_gear.safetensors"),
         "filename": "bdsm_gear_pony.safetensors"
     }
 ]

@@ -1,9 +1,14 @@
 import os
 from google.cloud import aiplatform
+from dotenv import load_dotenv
+
+base_dir = os.path.join(os.path.dirname(__file__), '..')
+load_dotenv(os.path.join(base_dir, ".env"))
+load_dotenv(os.path.join(base_dir, ".env.local"), override=True)
 
 print("Initializing Vertex AI SDK...")
-project_id = "vertex-ai-489604"
-location = "us-central1"
+project_id = os.environ.get("PROJECT_ID", "vertex-ai-489604")
+location = os.environ.get("LOCATION", "us-central1")
 aiplatform.init(project=project_id, location=location)
 
 pipeline_root = f"gs://{project_id}-pipeline-root/pipeline_root"
@@ -20,5 +25,6 @@ job = aiplatform.PipelineJob(
     pipeline_root=pipeline_root,
 )
 
-job.submit(service_account="pipeline-runner@vertex-ai-489604.iam.gserviceaccount.com")
+service_account = os.environ.get("SERVICE_ACCOUNT", "pipeline-runner@vertex-ai-489604.iam.gserviceaccount.com")
+job.submit(service_account=service_account)
 print("Pipeline submitted successfully! Please check the Vertex AI UI for the execution.")
