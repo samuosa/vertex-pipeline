@@ -1,0 +1,60 @@
+name: 'Terraform Deploy Infrastructure'
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'ci-cd/terraform/**'
+  workflow_dispatch:
+
+jobs:
+  terraform:
+    name: 'Terraform Plan & Apply'
+    runs-on: ubuntu-latest
+    
+    # These permissions are required for Workload Identity Federation
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    defaults:
+      run:
+        working-directory: ./ci-cd/terraform
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Authenticate to Google Cloud using Workload Identity Federation
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          # Note: The Workload Identity Provider ID will need to be replaced with the actual generated ID after the first manual terraform apply
+          # Format: projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider
+          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider'
+          service_account: 'github-actions-cd-sa@vertex-pipeline-awfg2.iam.gserviceaccount.com'
+
+      # Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.7.0"
+
+      # Initialize Terraform
+      - name: Terraform Init
+        run: terraform init
+
+      # Format check
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      # Plan deployment
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
+
+      # Apply deployment automatically on main branch
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve tfplan

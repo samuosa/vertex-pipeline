@@ -143,3 +143,53 @@ resource "google_project_iam_member" "vertex_storage_admin" {
   member  = "serviceAccount:${google_service_account.vertex_pipeline_sa.email}"
 }
 ```
+
+### `wif.tf`
+```hcl
+# Workload Identity Federation allows GitHub Actions to authenticate without a JSON service account key
+resource "google_iam_workload_identity_pool" "github_pool" {
+  workload_identity_pool_id = "github-actions-pool"
+  display_name              = "GitHub Actions Pool"
+}
+
+resource "google_iam_workload_identity_pool_provider" "github_provider" {
+  workload_identity_pool_id          = google_iam_workload_identity_pool.github_pool.workload_identity_pool_id
+  workload_identity_pool_provider_id = "github-actions-provider"
+  
+  attribute_mapping = {
+    "google.subject"       = "assertion.sub"
+    "attribute.repository" = "assertion.repository"
+  }
+  
+  oidc {
+    issuer_uri = "https://token.actions.githubusercontent.com"
+  }
+}
+
+resource "google_service_account" "cicd_sa" {
+  account_id   = "github-actions-cd-sa"
+  display_name = "Service Account for GitHub Actions CI/CD"
+}
+
+resource "google_service_account_iam_member" "workload_identity_user" {
+  service_account_id = google_service_account.cicd_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "principalSet://iam.googleapis.com/${google_iam_workload_identity_pool.github_pool.name}/attribute.repository/samuosa/vertex-pipeline"
+}
+
+resource "google_project_iam_member" "cicd_editor" {
+  project = var.project_id
+  role    = "roles/editor"
+  member  = "serviceAccount:${google_service_account.cicd_sa.email}"
+}
+```
+
+## Vertex AI Pipelines (Phase 3)
+The pipeline definitions are written in Python using the `kfp` (Kubeflow Pipelines) SDK v2. 
+- **Location:** `pipelines/`
+- **Configuration:** The pipeline simulates downloading base model weights and training client LoRAs. It compiles into a YAML format ready for submission to the Vertex AI Pipeline backend.
+
+## GitHub Actions CI/CD
+We use GitHub Actions to automate Terraform deployments.
+- **Location:** `.github/workflows/deploy-infrastructure.yml`
+- **Authentication:** Standard service account keys are disabled for security. Instead, GitHub Actions runs impersonate the `github-actions-cd-sa` via **Workload Identity Federation (WIF)** configured in `ci-cd/terraform/wif.tf`.
