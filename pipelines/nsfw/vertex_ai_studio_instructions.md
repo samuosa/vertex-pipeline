@@ -26,35 +26,35 @@ Before starting, ensure you have populated the reference folders located at:
 4. Set the **Output format** (e.g., PNG for highest fidelity).
 5. Enable the **Advanced Options** toggle at the bottom of the parameter pane to reveal negative prompts and seed controls.
 
-### 3. Injecting System Instructions
+### 3. Injecting Character Enforcements
 Vertex AI Studio UI handles system instructions by blending them into the master prompt or negative prompt areas.
 1. Open the `system_instructions.md` file from `pipelines/nsfw/characters/nano_banana/`.
-2. Copy the **Character Master Description**.
-3. In the UI's main **Prompt** text box, you will prepend this master description to all your specific scene prompts.
-4. *Recommendation:* In the **Negative prompt** box, add standard safety constraints or visual fail-safes (e.g., `distorted face, mutated, bad anatomy, text, watermark, bad hands, extra limbs`).
+2. Copy the **Master Tag List (High-Efficiency Consistency)**.
+3. In the UI's main **Prompt** text box, you will prepend this tag block to all your specific scene prompts.
+4. In the **Negative prompt** box, always include: `(low quality, worst quality, distorted face, bad anatomy, text, watermark, bad hands, extra limbs, blur, monochrome)`.
 
-### 4. Subject Reference Image Setup (Image-to-Image / Few-Shot Image Prompting)
-To force absolute consistency, you should use the Imagen **Subject Reference** or **Style Reference** feature if available in your Vertex AI UI, or use the base image feature.
-1. Look for the **Reference Image** or **Provide an image** upload section below the main prompt box.
-2. Click **Upload** and navigate to your local `pipelines/nsfw/references/nano_banana/face/` folder.
-3. Select an optimized reference image.
-4. If there is a "Reference Type" dropdown, select **Subject** (so the model focuses on the character, not just the art style). 
+### 4. Subject Reference Image Setup (Image-to-Image)
+If you do not have high-quality reference images yet, use the following prompts to generate them first:
+
+**For Face Reference:**
+`score_9, score_8_up, masterpiece, 1girl, nano_banana, vibrant yellow hair, short messy hair, green eyes, emerald eyes, fair skin, close-up portrait, neutral expression, white background, soft studio lighting, ultra-detailed skin.`
+
+**For Full Body Reference:**
+`score_9, score_8_up, masterpiece, 1girl, nano_banana, vibrant yellow hair, short hair, green eyes, signature black and yellow tech-wear jacket, dark grey shorts, high-top sneakers, standing, T-pose or neutral standing pose, white background, full body, highres.`
+
+Once you have these images:
+1. Look for the **Reference Image** upload section in the Vertex AI UI.
+2. Upload the **Face Reference** for portrait shots or the **Full Body Reference** for wider shots.
+3. If available, set the "Reference Type" to **Subject**.
 
 ### 5. Executing the 5-Shot Sequence
 We use the shots defined in `few_shot_examples.md`.
 1. Open `few_shot_examples.md`.
-2. Navigate to **Scene 1: Neon Cyberpunk Cityscape**.
-3. Copy **Shot 1** text.
-4. Paste it into the Vertex AI Studio **Prompt** box, directly *after* your pasted System Instructions from Step 3. (Alternatively, if using an Agent/Chat interface for generation, pass the System Instruction once, then pass the Shots iteratively).
-5. Click **Generate**.
-6. Review the outputs. Adjust the `Seed` in Advanced settings if you want to lock onto a specific structural composition you like, then advance to **Shot 2**.
-7. Keep the reference image uploaded throughout all 5 shots in a scene to maintain the character's face.
-
-### 6. Changing Scenes
-When transitioning from Scene 1 to Scene 3 (Tropical Beach):
-1. Clear the previous prompt (but keep the Character Master Description).
-2. (Optional but recommended): If the scene fundamentally changes the character's clothing (e.g., swimwear instead of streetwear), you may need to update your **Subject Reference Image**. Upload a new reference from `pipelines/nsfw/references/nano_banana/full_body/` that better reflects the new scene, or rely heavily on the text prompt to override the clothing while keeping the face reference.
-3. Proceed with generating the 5 shots for the new scene.
+2. Select a scene (e.g., **Scene 1: Neon Cyberpunk Cityscape**).
+3. Copy the prompt for **Shot 1**.
+4. Combine it with your **Character Enforcement tags** and click **Generate**.
+5. Iterate through all 5 shots to build a consistent project gallery.
 
 ---
-**Troubleshooting Tip:** If the character's appearance diverges during the 5-shot batch, increase the *Reference Image Weight* (if the slider is available in your UI version) or add stronger descriptive keywords (e.g., `vibrant yellow hair`, `bright green eyes`) redundantly into the individual shot prompts.
+**Advanced Tip:** If the character's clothing dominates the face too much, use a **Face Reference** image and lower the "Region Strength" if your model allows regional prompting, or simply rely on the text "emerald green eyes" to override any model drift.
+

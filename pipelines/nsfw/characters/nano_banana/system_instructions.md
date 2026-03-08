@@ -19,10 +19,17 @@ These system instructions are designed to enforce a consistent character appeara
 - **Footwear:** Chunky futuristic high-top sneakers with yellow soles and glowing laces.
 - **Accessories:** A pair of yellow-tinted digital goggles resting either on her forehead or around her neck. Fingerless black gloves.
 
+## Master Tag List (High-Efficiency Consistency)
+Copy and paste this tag block into your Vertex AI prompt as the **Character Enforcement** base:
+
+`1girl, nano_banana, vibrant yellow hair, short messy hair, green eyes, emerald green eyes, yellow bangs, neon streak, fair skin, warm skin tone, petite toned athletic build, signature black and yellow tech-wear jacket, yellow jacket inner lining, neon yellow glowing accents, black crop top, dark grey cargo shorts, yellow utility straps, high-top sneakers, yellow digital goggles on forehead, fingerless black gloves.`
+
 ## Enforcement Guidelines for the Model
 *When generating images of 'Nano Banana', strictly adhere to the physical traits and signature attire unless a specific scene prompt overrides the clothing. The yellow hair, green eyes, and facial structure must remain absolutely consistent across all angles, lighting conditions, and expressions.*
 
-## Instructions for Use in Vertex AI
-1. Copy the "Character Master Description" above.
-2. Paste this text into the **System Instructions** or **Negative/Positive Prompt Base** in your Vertex AI Studio visual interface (under the text-to-image or image-to-image advanced settings depending on model version).
-3. Ensure these traits are continuously appended/prepended to your few-shot prompts.
+## Instructions for Use in Vertex AI Studio
+1. **System Prompt / Positive Base:** Use the **Master Tag List** above as the first part of your prompt.
+2. **Few-Shot Anchor:** For each new project, use one "Wide Shot" from the `few_shot_examples.md` as an anchor to ground the character's proportions and primary colors.
+3. **Negative Prompting:** In the **Negative prompt** box in Vertex AI Studio, always use: `(distorted, bad anatomy, flat color, monochrome, text, watermark, bad hands, extra limbs, dull eyes)`.
+4. **Consistency Lock:** Use the same `Seed` for the first 3 shots of a scene if you want to lock the environmental lighting, then vary the seed for the action/pose shots.
+

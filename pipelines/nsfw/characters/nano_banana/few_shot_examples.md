@@ -1,68 +1,55 @@
 # Few-Shot Prompt Engineering Examples: Nano Banana
 
-This document provides structured few-shot examples for generating the "Nano Banana" character, optimized for Danbooru-style models (like Pony XL). These examples combine scene instructions, intrinsic character traits, and specific Danbooru tags to ensure high-fidelity consistency.
+This document provides structured, optimized few-shot examples for generating the "Nano Banana" character, specifically tailored for high-fidelity models (Imagen 3, Pony XL, etc.). These examples use a systematic prompting architecture to ensure character consistency across 5 distinct shots for each scene.
 
 ## Prompt Architecture Template
 A highly effective prompt for Nano Banana follows this structure:
-`[Quality Tags] + [Character Enforcements] + [Scene Description] + [Action/Pose] + [Lighting/Style]`
+`[Quality/Meta Tags] + [Character Enforcements] + [Scene/Environment] + [Pose/Action] + [Lighting/Framing]`
 
 ---
 
-## Example 1: Neon Cyberpunk Cityscape (Default Look)
+## Scene 1: Neon Cyberpunk Cityscape
+**Theme:** High-tech, low-life, rain-slicked streets, vibrant yellow contrast against blue/magenta neon.
 
-**Context:** Nano Banana navigating a futuristic, glowing city environment at night in her signature outfit.
-
-*   **System/Quality Tags:** `score_9, score_8_up, score_7_up, masterpiece, best quality, ultra-detailed, photorealistic.`
-*   **Character Enforcements:** `1girl, nano_banana, vibrant yellow hair, short messy hair, green eyes, fair skin, black and yellow tech-wear jacket, yellow inner lining, glowing neon yellow accents, black athletic crop top, dark grey cargo shorts, yellow utility straps, high-top sneakers, yellow digital goggles on forehead, fingerless black gloves.`
-*   **Scene Description:** `cyberpunk city, neon lights, rain, wet streets, night, glowing holographic billboard, crowded market.`
-*   **Action/Pose:** `running, looking at viewer, dynamic pose, smiling.`
-*   **Final Combined Prompt:**
-    ```text
-    score_9, score_8_up, score_7_up, masterpiece, best quality, ultra-detailed, photorealistic, 1girl, nano_banana, vibrant yellow hair, short messy hair, green eyes, fair skin, black and yellow tech-wear jacket, yellow inner lining, glowing neon yellow accents, black athletic crop top, dark grey cargo shorts, yellow utility straps, high-top sneakers, yellow digital goggles on forehead, fingerless black gloves, cyberpunk city, neon lights, rain, wet streets, night, glowing holographic billboard, crowded market, running, looking at viewer, dynamic pose, smiling.
-    ```
-
----
-
-## Example 2: High-Octane Arcade (Action Focus)
-
-**Context:** Nano Banana intensely playing an arcade game. Tests dynamic interaction with objects while retaining her core facial features.
-
-*   **System/Quality Tags:** `score_9, score_8_up, score_7_up, highres, vibrant colors, nostalgic 90s anime aesthetic.`
-*   **Character Enforcements:** `1girl, nano_banana, bright yellow hair, messy bangs, emerald green eyes, petite toned build, signature black and yellow cropped jacket, fingerless gloves.`
-*   **Scene Description:** `retro arcade, colorful LED lighting, arcade cabinet, glowing buttons, indoor.`
-*   **Action/Pose:** `playing arcade game, mashing buttons, leaning forward, intense focus, dramatic lighting from screen reflecting in eyes.`
-*   **Final Combined Prompt:**
-    ```text
-    score_9, score_8_up, score_7_up, highres, vibrant colors, nostalgic 90s anime aesthetic, 1girl, nano_banana, bright yellow hair, messy bangs, emerald green eyes, petite toned build, signature black and yellow cropped jacket, fingerless gloves, retro arcade, colorful LED lighting, arcade cabinet, glowing buttons, indoor, playing arcade game, mashing buttons, leaning forward, intense focus, dramatic lighting from screen reflecting in eyes.
-    ```
+1.  **Shot 1: Wide Establishing**
+    `score_9, score_8_up, score_7_up, masterpiece, 1girl, nano_banana, vibrant yellow hair, short messy hair, green eyes, signature black and yellow tech-wear jacket, yellow inner lining, glowing neon yellow accents, dark grey cargo shorts, high-top sneakers, cyberpunk city, neon lights, rain, wet streets, night, full body, standing on street corner, looking at viewer.`
+2.  **Shot 2: Medium Action**
+    `score_9, score_8_up, score_7_up, highres, 1girl, nano_banana, bright yellow hair, messy bangs, emerald green eyes, petite toned build, signature black and yellow cropped jacket, fingerless black gloves, glowing utility straps, neon market background, motion blur, running through crowd, looking forward, determined expression.`
+3.  **Shot 3: Close-up Portrait**
+    `score_9, score_8_up, score_7_up, portrait, hyper-detailed eyes, 1girl, nano_banana, vibrant yellow hair, messy hair, bright green eyes, fair skin, yellow digital goggles on forehead, face close-up, holographic billboard reflection on skin, dramatic neon lighting, cinematic bokeh.`
+4.  **Shot 4: High Angle Rooftop**
+    `score_9, score_8_up, score_7_up, masterpiece, 1girl, nano_banana, yellow hair, signature outfit, black and yellow jacket, sitting on ledge, rooftop, city skyline background, night, high angle, looking down at city, legs dangling, cool lighting.`
+5.  **Shot 5: Back Profile (Logo/Detail)**
+    `score_9, score_8_up, score_7_up, ultra-detailed, 1girl, nano_banana, short yellow hair, back view, over the shoulder, yellow and black jacket embroidery, glowing yellow stripes, looking back at camera, neon street bokeh, depth of field.`
 
 ---
 
-## Example 3: Tropical Beach Vacation (Outfit Override)
+## Scene 2: High-Octane Arcade
+**Theme:** Retro-futuristic, energetic, colorful LED glows, nostalgic 90s aesthetic.
 
-**Context:** Nano Banana out of her usual streetwear, proving the model can decouple her physical traits (hair/face/eyes) from her default clothing.
-
-*   **System/Quality Tags:** `score_9, score_8_up, score_7_up, masterpiece, highly detailed skin texture, cinematic.`
-*   **Character Enforcements:** `1girl, nano_banana, yellow hair, short hair, green eyes, athletic build, fair skin.`
-*   **Target Outfit:** `sporty yellow and black two-piece swimsuit, yellow digital goggles resting on towel.`
-*   **Scene Description:** `tropical beach, white sand, clear blue sky, palm trees, golden hour sunset, bright summer lighting.`
-*   **Action/Pose:** `walking on beach, looking away, side profile, relaxed expression, splashing water.`
-*   **Final Combined Prompt:**
-    ```text
-    score_9, score_8_up, score_7_up, masterpiece, highly detailed skin texture, cinematic, 1girl, nano_banana, yellow hair, short hair, green eyes, athletic build, fair skin, sporty yellow and black two-piece swimsuit, yellow digital goggles resting on towel, tropical beach, white sand, clear blue sky, palm trees, golden hour sunset, bright summer lighting, walking on beach, looking away, side profile, relaxed expression, splashing water.
-    ```
+1.  **Shot 1: Medium Arcade Play**
+    `score_9, score_8_up, score_7_up, highres, vibrant colors, 1girl, nano_banana, bright yellow hair, emerald green eyes, signature black and yellow cropped jacket, retro arcade, arcade cabinet, glowing buttons, playing arcade game, mashing buttons, leaning forward, intense focus, screen glow on face.`
+2.  **Shot 2: Full Body Victory**
+    `score_9, score_8_up, score_7_up, masterpiece, 1girl, nano_banana, yellow messy hair, green eyes, black cargo shorts, sneakers, arcade interior, neon signs, arms raised in victory, jumping, joyful expression, dynamic shot, wide angle.`
+3.  **Shot 3: Close-up Reaction**
+    `score_9, score_8_up, score_7_up, 1girl, nano_banana, vibrant yellow hair, emerald eyes wide, face close-up, sweating slightly, sticking tongue out in concentration, colorful LED reflections, 85mm lens, sharp focus.`
+4.  **Shot 4: Casual Lean**
+    `score_9, score_8_up, score_7_up, 1girl, nano_banana, signature outfit, yellow hair, green eyes, leaning against neon racing game cabinet, holding soda bottle, looking at viewer, smirk, relaxed pose, indoor lighting.`
+5.  **Shot 5: Perspective Shot (POV)**
+    `score_9, score_8_up, score_7_up, 1girl, nano_banana, yellow hair, green eyes, seen from opposite side of air hockey table, holding mallet, competitive stance, looking at viewer, dynamic perspective, neon arcade blur.`
 
 ---
 
-## Example 4: Combat Ready (Extreme Close-Up)
+## Scene 3: Tropical Beach Vacation
+**Theme:** Sunny, decoupled from tech-wear, retains core physical traits (hair/face/eyes).
 
-**Context:** Detailed portrait highlighting facial structure and lighting constraints.
-
-*   **System/Quality Tags:** `score_9, score_8_up, score_7_up, hyper-detailed face, 85mm lens, sharp focus.`
-*   **Character Enforcements:** `1girl, nano_banana, vibrant yellow hair with subtle neon streak, emerald green eyes, warm undertone, digital goggles down over eyes, tech-wear collar.`
-*   **Scene Description:** `dark alleyway, rim lighting, dramatic shadows.`
-*   **Action/Pose:** `extreme close-up face, looking at viewer, serious expression, glowing reflection in goggles.`
-*   **Final Combined Prompt:**
-    ```text
-    score_9, score_8_up, score_7_up, hyper-detailed face, 85mm lens, sharp focus, 1girl, nano_banana, vibrant yellow hair with subtle neon streak, emerald green eyes, warm undertone, digital goggles down over eyes, tech-wear collar, dark alleyway, rim lighting, dramatic shadows, extreme close-up face, looking at viewer, serious expression, glowing reflection in goggles.
-    ```
+1.  **Shot 1: Full Body Stroll**
+    `score_9, score_8_up, score_7_up, masterpiece, 1girl, nano_banana, vibrant yellow short hair, green eyes, fair skin, athletic build, yellow and black sporty two-piece bikini, tropical beach, white sand, clear blue sky, walking on beach, looking away, full body.`
+2.  **Shot 2: Medium Water Splash**
+    `score_9, score_8_up, score_7_up, action shot, 1girl, nano_banana, yellow hair, sea water droplets, green eyes, bikini, splashes, laughing, waist up, bright sun, high shutter speed, photorealistic.`
+3.  **Shot 3: Extreme Close-up Portrait**
+    `score_9, score_8_up, score_7_up, sunlight, 1girl, nano_banana, face close-up, yellow messy hair with sand, emerald green eyes, freckles visible, warm sun-kissed skin, looking at viewer, cinematic lighting, 8k.`
+4.  **Shot 4: Sunset Silhouette**
+    `score_9, score_8_up, score_7_up, silhouette, 1girl, nano_banana, yellow hair glowing in backlight, profile view, beach at sunset, golden hour, sitting on palm tree trunk, looking at horizon, artistic lighting, lens flare.`
+5.  **Shot 5: Looking Over Shoulder (Beach)**
+    `score_9, score_8_up, score_7_up, 1girl, nano_banana, yellow hair, green eyes, looking back over shoulder, holding yellow surfboard, tropical resort background, half body, confident expression, masterpiece.`
