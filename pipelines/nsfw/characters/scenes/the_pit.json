@@ -1,0 +1,16 @@
+{
+  "scene_id": "the_pit",
+  "characters": ["victoria_albrecht"],
+  "setting": "medieval courtyard, in a mud pit",
+  "clothing": "naked, chastity belt, metal collar",
+  "pose": "prisoner squat, hands crossed behind head, hands tied to post with metal braces, metal collar attached to wooden post",
+  "environment_details": "wooden post in the middle of the pit, multiple bystanders watching",
+  "style": "anime style, dark fantasy",
+  "required_loras": [
+    {"name": "female_chastity_belt", "weight": 1.0},
+    {"name": "metal_collar_restraint", "weight": 0.8},
+    {"name": "hands_tied_behind_head_pose", "weight": 1.0},
+    {"name": "prisoner_squat_pose", "weight": 0.9}
+  ],
+  "negative_prompt": "modern clothing, buildings, happy, bright colors, deformed, bad anatomy"
+}

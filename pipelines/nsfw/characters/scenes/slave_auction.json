@@ -1,0 +1,14 @@
+{
+  "scene_id": "slave_auction",
+  "characters": ["victoria_albrecht"],
+  "setting": "slave auction hall, on a podium",
+  "clothing": "naked",
+  "pose": "standing on auction block, chained",
+  "environment_details": "large crowd of bidders, spotlight on character",
+  "style": "anime style, dramatic lighting",
+  "required_loras": [
+    {"name": "auction_block_environment", "weight": 0.8},
+    {"name": "heavy_chains", "weight": 0.9}
+  ],
+  "negative_prompt": "bad anatomy, blurry, low res"
+}

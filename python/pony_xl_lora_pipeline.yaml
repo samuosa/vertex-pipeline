@@ -1,0 +1,162 @@
+# PIPELINE DEFINITION
+# Name: pony-xl-lora-training-pipeline
+# Description: A Vertex AI pipeline that fine-tunes a LoRA taking Pony XL as the base model.
+# Inputs:
+#    base_model_name: str [Default: 'pony-xl-v6']
+#    dataset_url: str [Default: 'gs://vertex-pipeline-awfg2-client-loras/datasets/user123.zip']
+#    training_epochs: int [Default: 10.0]
+components:
+  comp-download-base-model:
+    executorLabel: exec-download-base-model
+    inputDefinitions:
+      parameters:
+        model_name:
+          parameterType: STRING
+    outputDefinitions:
+      parameters:
+        output_path:
+          parameterType: STRING
+  comp-train-lora:
+    executorLabel: exec-train-lora
+    inputDefinitions:
+      parameters:
+        base_model_path:
+          parameterType: STRING
+        dataset_url:
+          parameterType: STRING
+        epochs:
+          defaultValue: 10.0
+          isOptional: true
+          parameterType: NUMBER_INTEGER
+        learning_rate:
+          defaultValue: 0.0001
+          isOptional: true
+          parameterType: NUMBER_DOUBLE
+    outputDefinitions:
+      parameters:
+        lora_output:
+          parameterType: STRING
+deploymentSpec:
+  executors:
+    exec-download-base-model:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - download_base_model
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.6.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'google-cloud-storage'\
+          \ && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef download_base_model(model_name: str, output_path: dsl.OutputPath(str)):\n\
+          \    import os\n    print(f\"Simulating download of {model_name}...\")\n\
+          \    # In a real scenario, this would use GCS client to download weights\n\
+          \    with open(output_path, \"w\") as f:\n        f.write(\"Simulated Model\
+          \ Weights Data\")\n    print(\"Download complete.\")\n\n"
+        image: python:3.10
+    exec-train-lora:
+      container:
+        args:
+        - --executor_input
+        - '{{$}}'
+        - --function_to_execute
+        - train_lora
+        command:
+        - sh
+        - -c
+        - "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip ||\
+          \ python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1\
+          \ python3 -m pip install --quiet --no-warn-script-location 'kfp==2.6.0'\
+          \ '--no-deps' 'typing-extensions>=3.7.4,<5; python_version<\"3.9\"'  &&\
+          \  python3 -m pip install --quiet --no-warn-script-location 'torch' 'diffusers'\
+          \ 'accelerate' && \"$0\" \"$@\"\n"
+        - sh
+        - -ec
+        - 'program_path=$(mktemp -d)
+
+
+          printf "%s" "$0" > "$program_path/ephemeral_component.py"
+
+          _KFP_RUNTIME=true python3 -m kfp.dsl.executor_main                         --component_module_path                         "$program_path/ephemeral_component.py"                         "$@"
+
+          '
+        - "\nimport kfp\nfrom kfp import dsl\nfrom kfp.dsl import *\nfrom typing import\
+          \ *\n\ndef train_lora(\n    base_model_path: dsl.InputPath(str),\n    dataset_url:\
+          \ str,\n    lora_output: dsl.OutputPath(str),\n    epochs: int = 10,\n \
+          \   learning_rate: float = 1e-4\n):\n    import os\n    print(f\"Loading\
+          \ base model from {base_model_path}...\")\n    print(f\"Downloading dataset\
+          \ from {dataset_url}...\")\n    print(f\"Starting training for {epochs}\
+          \ epochs with lr={learning_rate}...\")\n\n    # Simulate training process\n\
+          \    with open(lora_output, \"w\") as f:\n        f.write(\"Simulated trained\
+          \ LoRA safetensors\")\n    print(\"Training complete.\")\n\n"
+        image: nvidia/cuda:12.1.1-cudnn8-devel-ubuntu22.04
+pipelineInfo:
+  description: A Vertex AI pipeline that fine-tunes a LoRA taking Pony XL as the base
+    model.
+  name: pony-xl-lora-training-pipeline
+root:
+  dag:
+    tasks:
+      download-base-model:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-download-base-model
+        inputs:
+          parameters:
+            model_name:
+              componentInputParameter: base_model_name
+        taskInfo:
+          name: download-base-model
+      train-lora:
+        cachingOptions:
+          enableCache: true
+        componentRef:
+          name: comp-train-lora
+        dependentTasks:
+        - download-base-model
+        inputs:
+          parameters:
+            base_model_path:
+              taskOutputParameter:
+                outputParameterKey: output_path
+                producerTask: download-base-model
+            dataset_url:
+              componentInputParameter: dataset_url
+            epochs:
+              componentInputParameter: training_epochs
+        taskInfo:
+          name: train-lora
+  inputDefinitions:
+    parameters:
+      base_model_name:
+        defaultValue: pony-xl-v6
+        isOptional: true
+        parameterType: STRING
+      dataset_url:
+        defaultValue: gs://vertex-pipeline-awfg2-client-loras/datasets/user123.zip
+        isOptional: true
+        parameterType: STRING
+      training_epochs:
+        defaultValue: 10.0
+        isOptional: true
+        parameterType: NUMBER_INTEGER
+schemaVersion: 2.1.0
+sdkVersion: kfp-2.6.0

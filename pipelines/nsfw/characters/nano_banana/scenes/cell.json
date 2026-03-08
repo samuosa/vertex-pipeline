@@ -1,0 +1,16 @@
+{
+  "scene_id": "cell",
+  "characters": ["nano_banana"],
+  "setting": "grey stone cell, behind metal bars",
+  "clothing": "naked",
+  "pose": "laying on the floor, in metal chains",
+  "environment_details": "cold, damp, dark, heavy iron chains",
+  "style": "anime style, grimdark, masterpiece, cinematic lighting",
+  "character_enforcements": "1girl, nano_banana, vibrant yellow hair, short messy hair, green eyes, fair skin",
+  "required_loras": [
+    {"name": "metal_chains_bondage", "weight": 1.0},
+    {"name": "laying_on_floor_chains_pose", "weight": 0.9}
+  ],
+  "negative_prompt": "score_4, score_3, score_2, score_1, cheerful, bright, modern, poorly drawn, signature",
+  "combined_prompt_example": "score_9, score_8_up, score_7_up, masterpiece, best quality, ultra-detailed, anime style, grimdark, cinematic lighting, 1girl, nano_banana, vibrant yellow hair, short messy hair, green eyes, fair skin, grey stone cell, behind metal bars, naked, laying on the floor, in metal chains, cold, damp, dark, heavy iron chains."
+}
