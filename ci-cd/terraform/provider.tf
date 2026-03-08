@@ -18,6 +18,11 @@ provider "google" {
   region  = var.region
 }
 
+provider "google-beta" {
+  project = var.project_id
+  region  = var.region
+}
+
 variable "project_id" {
   description = "The GCP Project ID"
   type        = string
