@@ -15,9 +15,7 @@ resource "google_cloud_run_v2_service" "pony_xl_inference" {
 
     # Disable GPU zonal redundancy to avoid the missing quota error
     # and require only a single zone's worth of L4 GPUs
-    annotations = {
-      "run.googleapis.com/gpu-zonal-redundancy-disabled" = "true"
-    }
+    gpu_zonal_redundancy_disabled = true
 
     node_selector {
       accelerator = "nvidia-l4"
