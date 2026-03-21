@@ -19,8 +19,8 @@ resource "google_cloud_run_v2_service" "pony_xl_inference" {
       "run.googleapis.com/gpu-zonal-redundancy-disabled" = "true"
     }
 
-    node_selector = {
-      "run.googleapis.com/accelerator" = "nvidia-l4"
+    node_selector {
+      accelerator = "nvidia-l4"
     }
 
     # Define the single container
