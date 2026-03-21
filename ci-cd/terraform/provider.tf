@@ -7,10 +7,10 @@ terraform {
   }
 
   # Setup standard GCS backend for CI/CD state management
-  # backend "gcs" {
-  #   bucket = "YOUR_STATE_BUCKET_NAME"
-  #   prefix = "terraform/state"
-  # }
+  backend "gcs" {
+    bucket = "tf-state-vertex-pipeline-awfg2"
+    prefix = "terraform/state"
+  }
 }
 
 provider "google" {
