@@ -13,10 +13,10 @@ jobs:
     name: 'Terraform Plan & Apply'
     runs-on: ubuntu-latest
     
-    # These permissions are required for Workload Identity Federation
+    # Note: These permissions can be adjusted depending on what else the workflow needs.
+    # WIF required id-token: 'write', but Service Account JSON key does not.
     permissions:
       contents: 'read'
-      id-token: 'write'
 
     defaults:
       run:
@@ -26,15 +26,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Authenticate to Google Cloud using Workload Identity Federation
+      # Authenticate to Google Cloud using a Service Account JSON Key stored in GitHub Secrets
       - id: 'auth'
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v2'
         with:
-          # Note: The Workload Identity Provider ID will need to be replaced with the actual generated ID after the first manual terraform apply
-          # Format: projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider
-          workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-provider'
-          service_account: 'github-actions-cd-sa@vertex-pipeline-awfg2.iam.gserviceaccount.com'
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
       # Setup Terraform
       - name: Setup Terraform
