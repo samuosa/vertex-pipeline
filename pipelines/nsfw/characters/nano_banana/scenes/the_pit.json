@@ -1,0 +1,18 @@
+{
+  "scene_id": "the_pit",
+  "characters": ["nano_banana"],
+  "setting": "medieval courtyard, in a mud pit",
+  "clothing": "naked, chastity belt, metal collar",
+  "pose": "prisoner squat, hands crossed behind head, hands tied to post with metal braces, metal collar attached to wooden post",
+  "environment_details": "wooden post in the middle of the pit, multiple bystanders watching",
+  "style": "anime style, dark fantasy, highly detailed, masterpieces",
+  "character_enforcements": "1girl, nano_banana, vibrant yellow hair, short messy hair, green eyes, fair skin",
+  "required_loras": [
+    {"name": "female_chastity_belt", "weight": 1.0},
+    {"name": "metal_collar_restraint", "weight": 0.8},
+    {"name": "hands_tied_behind_head_pose", "weight": 1.0},
+    {"name": "prisoner_squat_pose", "weight": 0.9}
+  ],
+  "negative_prompt": "score_4, score_3, score_2, score_1, signature, watermark, username, displeasing, bad anatomy, poorly drawn, modern clothing",
+  "combined_prompt_example": "score_9, score_8_up, score_7_up, masterpiece, best quality, ultra-detailed, anime style, dark fantasy, 1girl, nano_banana, vibrant yellow hair, short messy hair, green eyes, fair skin, medieval courtyard, in a mud pit, naked, chastity belt, metal collar, prisoner squat, hands crossed behind head, hands tied to post with metal braces, metal collar attached to wooden post, wooden post in the middle of the pit, multiple bystanders watching."
+}

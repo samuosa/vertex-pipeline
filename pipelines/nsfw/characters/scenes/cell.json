@@ -1,0 +1,14 @@
+{
+  "scene_id": "cell",
+  "characters": ["victoria_albrecht"],
+  "setting": "grey stone cell, behind metal bars",
+  "clothing": "naked",
+  "pose": "laying on the floor, in metal chains",
+  "environment_details": "cold, damp, dark, heavy iron chains",
+  "style": "anime style, grimdark",
+  "required_loras": [
+    {"name": "metal_chains_bondage", "weight": 1.0},
+    {"name": "laying_on_floor_chains_pose", "weight": 0.9}
+  ],
+  "negative_prompt": "cheerful, bright, modern, poorly drawn"
+}

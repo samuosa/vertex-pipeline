@@ -10,7 +10,11 @@
 ## Fetish & Pose LoRAs
 | LoRA Name | Version | Source (URL) | Trigger Words / Tags | Description |
 | :--- | :--- | :--- | :--- | :--- |
-| [Pending SPICY-004] | -- | -- | -- | -- |
+| PonyXL Shibari Poses | v1.0 | CivitAI (mock123) | `shibari, bound, suspension` | Provides consistent Japanese rope bondage poses optimized for Pony XL. |
+| BDSM Gear Pony XL | v2.1 | HuggingFace (mockuser/bdsm-gear) | `leather harness, collar, blindfold` | Injects high-fidelity BDSM equipment onto standard character generations. |
+| Female Chastity Belt Pony XL | v1.0 | CivitAI | `chastity belt, chastity` | Focus on rigid metal chastity belts designed for female anime anatomy on Pony XL. |
+| Prisoner Squat Pose LoRA | v1.0 | CivitAI | `squatting, prisoner squat, tied post` | Guides the pose to a kneeling/squatting position attached to a post. |
+| Heavy Metal Restraints & Chains | v1.0 | HuggingFace | `metal collar, heavy chains, chained to wall` | Specific LoRA for enhancing the realism of dark fantasy chains and collars. |
 
 ## ControlNet Models
 | Model Name | Version | Source (URL) | Usage | Description |

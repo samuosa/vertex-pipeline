@@ -1,0 +1,16 @@
+{
+  "character_id": "victoria_albrecht",
+  "base_model": "Pony Diffusion V6 XL",
+  "lora_weights": [
+    {
+      "name": "VictoriaAlbrecht_v1",
+      "trigger_word": "victoria_albrecht",
+      "weight": 1.0,
+      "source": "internal_training"
+    }
+  ],
+  "controlnet_setup": {
+    "recommended_modules": ["canny", "openpose"],
+    "pose_references": "/pipelines/nsfw/characters/victoria_albrecht/poses/"
+  }
+}

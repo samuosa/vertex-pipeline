@@ -1,0 +1,17 @@
+{
+  "scene_id": "dining_hall",
+  "characters": ["serena_voss", "nano_banana"],
+  "setting": "opulent palace dining hall, renaissance style",
+  "clothing": "Serena Voss formally dressed in renaissance gown, Nano Banana in black latex catsuit",
+  "pose": "Serena standing dominantly, Nano Banana tied up kneeling before her",
+  "environment_details": "candlelight, large dining table, rich tapestries",
+  "style": "anime style, high quality, masterpiece, dramatic lighting",
+  "character_enforcements": "1girl, nano_banana, vibrant yellow hair, short messy hair, green eyes, fair skin",
+  "required_loras": [
+    {"name": "latex_catsuit", "weight": 1.0},
+    {"name": "kneeling_tied_up_pose", "weight": 1.0},
+    {"name": "renaissance_dress", "weight": 0.8}
+  ],
+  "negative_prompt": "score_4, score_3, score_2, score_1, ugly, bad anatomy, poorly drawn faces, low resolution, poorly lit",
+  "combined_prompt_example": "score_9, score_8_up, score_7_up, masterpiece, best quality, ultra-detailed, anime style, dramatic lighting, 2girls, serena_voss, nano_banana, vibrant yellow hair, short messy hair, green eyes, fair skin, opulent palace dining hall, renaissance style, Serena Voss formally dressed in renaissance gown, Nano Banana in black latex catsuit, Serena standing dominantly, Nano Banana tied up kneeling before her, candlelight, large dining table, rich tapestries."
+}

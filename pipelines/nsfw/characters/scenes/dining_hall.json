@@ -1,0 +1,15 @@
+{
+  "scene_id": "dining_hall",
+  "characters": ["serena_voss", "victoria_albrecht"],
+  "setting": "opulent palace dining hall, renaissance style",
+  "clothing": "Serena Voss formally dressed in renaissance gown, Victoria Albrecht in black latex catsuit",
+  "pose": "Serena standing dominantly, Victoria tied up kneeling before her",
+  "environment_details": "candlelight, large dining table, rich tapestries",
+  "style": "anime style, high quality, masterpiece",
+  "required_loras": [
+    {"name": "latex_catsuit", "weight": 1.0},
+    {"name": "kneeling_tied_up_pose", "weight": 1.0},
+    {"name": "renaissance_dress", "weight": 0.8}
+  ],
+  "negative_prompt": "ugly, bad anatomy, poorly drawn faces, low resolution"
+}

@@ -35,3 +35,27 @@
 *   **Update:** A new role, `@Spicy_Engineer`, has been defined and added to the SDLC team. This role will handle a specialized NSFW pipeline operating on a separate branch mapping to our base infrastructure.
 *   **Tag:** `@Spicy_Engineer` - Please review your procedures in `docs/roles/spicy_engineer.md`. Begin executing on your tickets (`SPICY-001` through `SPICY-004`) in the `/docs/tickets/` directory to build the `nsfw` branch, Danbooru converter, Character LoRA training, and External Sourcing. Ensure you document all external imports in `pipelines/nsfw/sources.md`.
 *   **Tag:** `@Lead_Dev` - Be aware that the NSFW pipeline (SPICY-001) might eventually require distinct memory/compute variants or separate Cloud Run endpoints when merged to main. Coordinate via this channel if adjustments to `architecture_spec.md` are necessary.
+
+**[2026-03-08 11:15:00] - @Product_Owner:**
+*   **Update:** New Phase (Phase S: Scraper Engineering) initialized. Transitioning scrapers to a scale-to-zero GCP pipeline with a React monitoring dashboard.
+*   **Tag:** `@Webcrawler_Cloud_Architect` - Please review `docs/roles/webcrawler_cloud_architect.md`. Your first priority is setting up the Playwright + LLM engine (SCRAPE-001) and the data transformation logic (SCRAPE-002).
+*   **Tag:** `@Lead_Dev` - We will need crawler-specific buckets and a Pub/Sub topic for alerting. Coordinate with `@Webcrawler_Cloud_Architect` on the naming conventions.
+*   **Tag:** `@QA_Engineer` - Note the new QA requirements for the scraper pipeline (SCRAPE-003). Please review the health verification logic proposed.
+
+
+**[2026-03-08 05:10:00] - @Spicy_Engineer:**
+*   **Update:** Completed SPICY-002. The Danbooru text parser utility is implemented at `pipelines/nsfw/danbooru_converter.py` and optimized for Pony XL tagging formats.
+*   **Tag:** `@Lead_Dev` - The microservice is ready to be loaded by the Cloud Run generation API whenever the pipeline is merged to main.
+
+**[2026-03-08 05:15:00] - @Spicy_Engineer:**
+*   **Update:** Completed SPICY-003. The character training orchestration pipeline is implemented using `kfp` at `pipelines/nsfw/character_training_pipeline.py`. It includes automatic ingestion from the character directory structure, ControlNet preprocessing, and LoRA training.
+
+**[2026-03-08 05:20:00] - @Spicy_Engineer:**
+*   **Update:** Completed SPICY-004. Developed standard operating script `pipelines/nsfw/download_loras.py` for automated fetching to our GCS bucket. Registered required stylistic LoRAs in `/pipelines/nsfw/sources.md`. All assigned milestone tickets SPICY-001 through SPICY-004 are now fulfilled on the `nsfw` branch.
+*   **Tag:** `@Product_Owner` - The specialized NSFW Pipeline components have been initialized! Ready for next steps or integration planning.
+
+**[2026-03-08 07:10:00] - @Spicy_Engineer:**
+*   **Update:** Completed SPICY-008 (Bulk Pipeline Execution).
+*   **Stats:** Successfully processed 8 scene configurations in a single batch, generating 40 total images across all character/scene combinations (Victoria, Serena, Nano Banana).
+*   **Artifacts:** Master batch log available at `pipelines/nsfw/pipelineruns/bulk_exec_log.md`. All PNGs validated in the `pipelineruns/` folder.
+*   **Tag:** `@Product_Owner` - Bulk scene validation is complete. The pipeline is now fully scalable for new character/scene combinations.

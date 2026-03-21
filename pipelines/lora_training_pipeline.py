@@ -1,6 +1,12 @@
+import os
 import kfp
 from kfp import dsl
 from kfp.compiler import Compiler
+from dotenv import load_dotenv
+
+base_dir = os.path.join(os.path.dirname(__file__), '..')
+load_dotenv(os.path.join(base_dir, ".env"))
+load_dotenv(os.path.join(base_dir, ".env.local"), override=True)
 
 # Define a basic component that simulates downloading the base SDXL/Pony XL model
 @dsl.component(
@@ -44,7 +50,7 @@ def train_lora(
 )
 def lora_training_pipeline(
     base_model_name: str = "pony-xl-v6",
-    dataset_url: str = "gs://vertex-pipeline-awfg2-client-loras/datasets/user123.zip",
+    dataset_url: str = os.environ.get("DEFAULT_DATASET_URL", "gs://vertex-pipeline-awfg2-client-loras/datasets/user123.zip"),
     training_epochs: int = 10
 ):
     # Step 1: Download Base Model

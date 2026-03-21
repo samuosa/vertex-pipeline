@@ -20,4 +20,4 @@ Develop the automated pipeline to consume user-supplied character references and
 
 ## Updates
 *(Workers: Append your updates, roadblocks, or PR links below this line)*
-- **[Date] - [Assignee]:** [Update text]
+- **[2026-03-08] - Spicy Engineer:** Developed the `nsfw-character-training-pipeline` in `pipelines/nsfw/character_training_pipeline.py`. The pipeline handles ingestion from the character directory structure, implements Kohya-style LoRA training, and includes ControlNet preprocessing. SPICY-003 completed.

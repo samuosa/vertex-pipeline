@@ -1,0 +1,16 @@
+{
+  "character_id": "serena_voss",
+  "base_model": "Pony Diffusion V6 XL",
+  "lora_weights": [
+    {
+      "name": "SerenaVoss_Noble_v1",
+      "trigger_word": "serena_voss",
+      "weight": 1.0,
+      "source": "internal_training"
+    }
+  ],
+  "controlnet_setup": {
+    "recommended_modules": ["canny"],
+    "pose_references": "/pipelines/nsfw/characters/serena_voss/poses/"
+  }
+}
