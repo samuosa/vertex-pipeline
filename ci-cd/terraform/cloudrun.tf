@@ -13,6 +13,16 @@ resource "google_cloud_run_v2_service" "pony_xl_inference" {
   template {
     service_account = google_service_account.vertex_pipeline_sa.email
 
+    # Disable GPU zonal redundancy to avoid the missing quota error
+    # and require only a single zone's worth of L4 GPUs
+    annotations = {
+      "run.googleapis.com/gpu-zonal-redundancy-disabled" = "true"
+    }
+
+    node_selector = {
+      "run.googleapis.com/accelerator" = "nvidia-l4"
+    }
+
     # Define the single container
     containers {
       # Placeholder Artifact Registry image (to be built by CI/CD)
