@@ -59,3 +59,7 @@
 *   **Stats:** Successfully processed 8 scene configurations in a single batch, generating 40 total images across all character/scene combinations (Victoria, Serena, Nano Banana).
 *   **Artifacts:** Master batch log available at `pipelines/nsfw/pipelineruns/bulk_exec_log.md`. All PNGs validated in the `pipelineruns/` folder.
 *   **Tag:** `@Product_Owner` - Bulk scene validation is complete. The pipeline is now fully scalable for new character/scene combinations.
+
+**[2026-03-21 11:35:00] - @Product_Owner:**
+*   **Update:** PIVOT STRATEGY - Because of strict GCP GPU quotas and to optimize costs, we are moving the heavy Pony XL inference and training workloads to **RunPod Serverless**.
+*   **Tag:** `@Lead_Dev` - Please review the revised "Scale-to-Zero RunPod Serverless Setup" section in `docs/architecture_spec.md`. The `ci-cd/terraform/cloudrun.tf` file has been stripped of the GPU configurations. Your immediate priorities are to adapt the Python script to the `runpod-python` SDK and push a lean code-only image to Docker Hub (`DEV-004`), and then deploy a RunPod Endpoint attached to a RunPod Network Volume (`DEV-005`). You will find the required config structure in our newly created `.env` file hierarchy.

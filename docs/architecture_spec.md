@@ -31,20 +31,16 @@ We follow the principle of least privilege, establishing dedicated service accou
 
 ## Model Serving Architecture (TSK-005)
 
-### Scale-to-Zero Cloud Run (L4 GPUs) Setup
-The inference engine will be deployed as a containerized service on Cloud Run, optimized for rapid cold starts and cost efficiency.
+### Scale-to-Zero RunPod Serverless Setup
+Due to hard GPU quota limits on GCP, the heavy inference engine is deployed on **RunPod Serverless**. This provides instant access to cost-effective high-end GPUs (e.g., RTX 3090/4090s) and true scale-to-zero capabilities.
 
-*   **Compute Requirements:**
-    *   **GPU:** 1x NVIDIA L4 GPU per instance.
-    *   **CPU:** 4 vCPU (minimum recommended for stable inference).
-    *   **Memory:** 16 GiB RAM.
-    *   **Concurrency:** 1 (Strictly single-request concurrency to prevent GPU memory out-of-bounds errors on a single L4).
-*   **Cold Start Optimization:**
-    *   **Model Weights Loading:** We will utilize **Cloud Storage FUSE (GCSFuse)** to mount the `vertex-pipeline-base-models` bucket directly to the container at runtime. This avoids downloading multi-gigabyte safetensors on every spin-up.
-    *   **Container Image:** Image Streaming will be enabled in Artifact Registry to begin container execution before the full image is downloaded.
-*   **Container Dependencies:**
-    *   Base Image: `nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04` (or similar compatible vLLM/Diffusers base).
-    *   Python 3.10+, PyTorch, diffusers, xformers.
+*   **Hybrid Storage Strategy:**
+    *   **Lean Compute Container:** Python code and dependencies (`runpod-python`, `torch`, `diffusers`) are bundled into a lean Docker image pushed to **Docker Hub** (free private registry) to avoid massive pull times.
+    *   **Fast Model Storage:** Massive `safetensors` files (e.g., Pony XL 6.5GB) are stored statically on a **RunPod Network Volume** attached to the serverless endpoint to ensure near-instant cold starts and zero networking egress costs.
+    *   **Dynamic Assets:** Client LoRAs and generated images remain in **GCP Storage** for lightweight, automated transfers and native integration with Vertex Pipelines and the React frontend.
+*   **Execution Flow:**
+    *   Vertex AI Pipelines (or external services) trigger the RunPod Endpoint URL via HTTP POST authenticated with a `RUNPOD_API_KEY`.
+    *   The Serverless worker spins up, mounts the base model volume immediately, downloads any requested LoRAs securely from GCP Storage, generates the image, and uploads the final PNG back to the GCP Output Bucket.
 
 ## Foundational Terraform Configuration
 
